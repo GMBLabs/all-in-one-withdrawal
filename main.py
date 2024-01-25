@@ -80,7 +80,6 @@ class WithdrawalApp:
             success_counter = 0
 
             print(f"\n ---NEW WITHDRAW CONFIGURATION ---")
-            print(f"Soft by th0masi: https://t.me/thor_lab")
             print(f"Selected Exchange: {selected_exchange.capitalize()}")
             print(f"Amount Range: {withdrawal_range}")
             print(f"Delay Range: {(float(self.min_delay_var.get()), float(self.max_delay_var.get()))}")
@@ -285,6 +284,13 @@ class WithdrawalApp:
         github_label.grid(row=0, column=2)
         github_label.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/th0masi"))
 
+        link_label = ttk.Label(block_powered_by, text="Packing by Yuu", style='Custom.TLabel', cursor="hand2")
+        link_label.grid(row=1, column=1)  # Note that the column is now 1
+
+        github_label = ttk.Label(block_powered_by, text=" [github.com/GMBLabs] ", style='Custom.TLabel', cursor="hand2")
+        github_label.grid(row=1, column=2)
+        github_label.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/GMBLabs"))
+    
         empty_label_left = ttk.Label(block_powered_by, text="")
         empty_label_left.grid(row=0, column=0, sticky='ew')
 
