@@ -202,22 +202,24 @@ def kucoin_get_withdrawal_info(token):
         for currency_code, currency in currencies.items():
             if currency_code == token.upper():
                 try:
-                    for network_code, network in currency['networks'].items():
-                        is_withdraw_enabled = network.get('info', {}).get('isWithdrawEnabled', 'false') == 'true'
+                    for network in currency['info']['chains']:
+                        print(network)
+                        is_withdraw_enabled = network.get('isWithdrawEnabled', False) == True
 
-                        fee = network.get('fee')
+                        fee = network.get('withdrawalMinFee')
                         if fee is not None:
                             fee = float(fee)
                             fee = smart_round(fee)
 
-                        min_withdrawal = network.get('info', {}).get('withdrawMinSize')
+                        min_withdrawal = network.get('withdrawalMinSize')
                         if min_withdrawal is not None:
                             min_withdrawal = float(min_withdrawal)
 
-                        chain_full_name = network.get('info', {}).get('chainFullName', '')
+                        chain_id = network.get('chainId')
+                        chain_name = network.get('chainName')
                         if is_withdraw_enabled:
-                            network_data[chain_full_name] = (network_code, fee, min_withdrawal)
-                            networks.append(chain_full_name)
+                            network_data[chain_id] = (chain_name, fee, min_withdrawal)
+                            networks.append(chain_id)
                 except Exception as e:
                     print(f"\n>>>  Error fetching fees for {currency_code}: {str(e)}")
                 break
